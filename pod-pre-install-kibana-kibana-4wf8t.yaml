@@ -1,0 +1,281 @@
+piVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2024-12-11T09:31:55Z"
+  generateName: pre-install-kibana-kibana-
+  labels:
+    batch.kubernetes.io/controller-uid: c79885cd-b1e5-40db-967b-990ce568a156
+    batch.kubernetes.io/job-name: pre-install-kibana-kibana
+    controller-uid: c79885cd-b1e5-40db-967b-990ce568a156
+    job-name: pre-install-kibana-kibana
+  managedFields:
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:generateName: {}
+        f:labels:
+          .: {}
+          f:batch.kubernetes.io/controller-uid: {}
+          f:batch.kubernetes.io/job-name: {}
+          f:controller-uid: {}
+          f:job-name: {}
+        f:ownerReferences:
+          .: {}
+          k:{"uid":"c79885cd-b1e5-40db-967b-990ce568a156"}: {}
+      f:spec:
+        f:containers:
+          k:{"name":"create-kibana-token"}:
+            .: {}
+            f:args: {}
+            f:command: {}
+            f:env:
+              .: {}
+              k:{"name":"ELASTICSEARCH_PASSWORD"}:
+                .: {}
+                f:name: {}
+                f:valueFrom:
+                  .: {}
+                  f:secretKeyRef: {}
+              k:{"name":"ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES"}:
+                .: {}
+                f:name: {}
+                f:value: {}
+              k:{"name":"ELASTICSEARCH_USERNAME"}:
+                .: {}
+                f:name: {}
+                f:valueFrom:
+                  .: {}
+                  f:secretKeyRef: {}
+            f:image: {}
+            f:imagePullPolicy: {}
+            f:name: {}
+            f:resources: {}
+            f:terminationMessagePath: {}
+            f:terminationMessagePolicy: {}
+            f:volumeMounts:
+              .: {}
+              k:{"mountPath":"/usr/share/kibana/config/certs"}:
+                .: {}
+                f:mountPath: {}
+                f:name: {}
+                f:readOnly: {}
+              k:{"mountPath":"/usr/share/kibana/helm-scripts"}:
+                .: {}
+                f:mountPath: {}
+                f:name: {}
+        f:dnsPolicy: {}
+        f:enableServiceLinks: {}
+        f:restartPolicy: {}
+        f:schedulerName: {}
+        f:securityContext: {}
+        f:serviceAccount: {}
+        f:serviceAccountName: {}
+        f:terminationGracePeriodSeconds: {}
+        f:volumes:
+          .: {}
+          k:{"name":"elasticsearch-certs"}:
+            .: {}
+            f:name: {}
+            f:secret:
+              .: {}
+              f:defaultMode: {}
+              f:secretName: {}
+          k:{"name":"kibana-helm-scripts"}:
+            .: {}
+            f:configMap:
+              .: {}
+              f:defaultMode: {}
+              f:name: {}
+            f:name: {}
+    manager: kube-controller-manager
+    operation: Update
+    time: "2024-12-11T09:31:55Z"
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:status:
+        f:conditions:
+          k:{"type":"ContainersReady"}:
+            .: {}
+            f:lastProbeTime: {}
+            f:lastTransitionTime: {}
+            f:reason: {}
+            f:status: {}
+            f:type: {}
+          k:{"type":"Initialized"}:
+            .: {}
+            f:lastProbeTime: {}
+            f:lastTransitionTime: {}
+            f:status: {}
+            f:type: {}
+          k:{"type":"PodReadyToStartContainers"}:
+            .: {}
+            f:lastProbeTime: {}
+            f:lastTransitionTime: {}
+            f:status: {}
+            f:type: {}
+          k:{"type":"Ready"}:
+            .: {}
+            f:lastProbeTime: {}
+            f:lastTransitionTime: {}
+            f:reason: {}
+            f:status: {}
+            f:type: {}
+        f:containerStatuses: {}
+        f:hostIP: {}
+        f:hostIPs: {}
+        f:phase: {}
+        f:podIP: {}
+        f:podIPs:
+          .: {}
+          k:{"ip":"10.244.0.43"}:
+            .: {}
+            f:ip: {}
+        f:startTime: {}
+    manager: kubelet
+    operation: Update
+    subresource: status
+    time: "2024-12-11T09:34:23Z"
+  name: pre-install-kibana-kibana-4wf8t
+  namespace: default
+  ownerReferences:
+  - apiVersion: batch/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: Job
+    name: pre-install-kibana-kibana
+    uid: c79885cd-b1e5-40db-967b-990ce568a156
+  resourceVersion: "74806"
+  uid: e7294378-398e-4dcc-95e3-330031c03795
+spec:
+  containers:
+  - args:
+    - /usr/share/kibana/helm-scripts/manage-es-token.js
+    - create
+    command:
+    - /usr/share/kibana/node/bin/node
+    env:
+    - name: ELASTICSEARCH_USERNAME
+      valueFrom:
+        secretKeyRef:
+          key: username
+          name: elasticsearch-master-credentials
+    - name: ELASTICSEARCH_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          key: password
+          name: elasticsearch-master-credentials
+    - name: ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES
+      value: /usr/share/kibana/config/certs/ca.crt
+    image: docker.elastic.co/kibana/kibana:8.5.1
+    imagePullPolicy: IfNotPresent
+    name: create-kibana-token
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /usr/share/kibana/config/certs
+      name: elasticsearch-certs
+      readOnly: true
+    - mountPath: /usr/share/kibana/helm-scripts
+      name: kibana-helm-scripts
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-7l8ts
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: minikube
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Never
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: pre-install-kibana-kibana
+  serviceAccountName: pre-install-kibana-kibana
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: elasticsearch-certs
+    secret:
+      defaultMode: 420
+      secretName: elasticsearch-master-certs
+  - configMap:
+      defaultMode: 493
+      name: kibana-kibana-helm-scripts
+    name: kibana-helm-scripts
+  - name: kube-api-access-7l8ts
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2024-12-11T09:34:20Z"
+    status: "False"
+    type: PodReadyToStartContainers
+  - lastProbeTime: null
+    lastTransitionTime: "2024-12-11T09:31:55Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2024-12-11T09:34:19Z"
+    reason: PodFailed
+    status: "False"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2024-12-11T09:34:19Z"
+    reason: PodFailed
+    status: "False"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2024-12-11T09:31:55Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://aeb0074c927fcd0db911d6a2925b674d51ca419c3f47bb24d527028fca0be8ed
+    image: docker.elastic.co/kibana/kibana:8.5.1
+    imageID: docker-pullable://docker.elastic.co/kibana/kibana@sha256:3266a417b69207dab8da9a732d93c11512944f2ec88a9cd169bfbb0d6fd878f5
+    lastState: {}
+    name: create-kibana-token
+    ready: false
+    restartCount: 0
+    started: false
+    state:
+      terminated:
+        containerID: docker://aeb0074c927fcd0db911d6a2925b674d51ca419c3f47bb24d527028fca0be8ed
+        exitCode: 1
+        finishedAt: "2024-12-11T09:34:18Z"
+        reason: Error
+        startedAt: "2024-12-11T09:31:57Z"
+  hostIP: 10.110.25.128
+  hostIPs:
+  - ip: 10.110.25.128
+  phase: Failed
+  podIP: 10.244.0.43
+  podIPs:
+  - ip: 10.244.0.43
+  qosClass: BestEffort
+  startTime: "2024-12-11T09:31:55Z"
