@@ -6,7 +6,7 @@ resource "kubernetes_namespace" "devops-assignment" {
 
 resource "kubernetes_deployment" "devops-assignment" {
   metadata {
-    name = "terraform-devops-assignment"
+    name = "devops-assignment"
     labels = {
       test = "DevopsAssignment"
     }
@@ -36,8 +36,8 @@ resource "kubernetes_deployment" "devops-assignment" {
 
           resources {
             limits = {
-              cpu    = "0.5"
-              memory = "512Mi"
+              cpu    = "1"
+              memory = "1Gi"
             }
             requests = {
               cpu    = "250m"

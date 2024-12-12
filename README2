@@ -6,13 +6,13 @@ Installed Minikube for Kubernetes environment setup.
 
 Installed Terraform for infrastructure provisioning.
 
-Deployed the Kubernetes configuration using Minikube.
-
-Configured a provider.tf file for versions and configurations.
+Deployed the application with two replicas in Kubernetes.
+- Terraform init
+- Terraform plan
+- Terraform apply
 
 Configured K8s.tf file to create a Kubernetes namespace named k8s-ns-by-tf using the kubernetes_namespace resource.
-
-Deployed the application with two replicas in Kubernetes.
+- minikube service devops-syvora-service -n k8s-ns-by-tf  --url
 
 Exposed the service manually due to running Docker on Windows Desktop.
 
@@ -33,4 +33,7 @@ To deploy the backend application in Kubernetes using Helm charts, I first creat
 Updated the generated Helm files to define services and providers according to the application's requirements.
 
 I deployed the Helm chart using the helm install command.
+
+ I tried using Elasticsearch for monitoring, but I couldn't complete because of my system limitations it kept crashing.
+
 
