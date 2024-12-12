@@ -1,0 +1,36 @@
+Created a Dockerfile and Docker Compose(compose.yaml) file to define the application.
+
+Configured a YAML file(.github>workflows>docker.yml) to build and push the Docker image to Docker Hub.
+
+Installed Minikube for Kubernetes environment setup.
+
+Installed Terraform for infrastructure provisioning.
+
+Deployed the Kubernetes configuration using Minikube.
+
+Configured a provider.tf file for versions and configurations.
+
+Configured K8s.tf file to create a Kubernetes namespace named k8s-ns-by-tf using the kubernetes_namespace resource.
+
+Deployed the application with two replicas in Kubernetes.
+
+Exposed the service manually due to running Docker on Windows Desktop.
+
+Creates a deployment named terraform-devops-assignment in the k8s-ns-by-tf namespace with:
+- Pods labeled with test: DevopsAssignment.
+- A container using the image kmlparihar14/devops-assignment:latest.
+- Resource limits: 0.5 CPU and 512Mi memory.
+- Resource requests: 250m CPU and 50Mi memory.
+
+Defines a NodePort service named devops-syvora-service in the same namespace to expose the deployment with:
+- Selector matching test: devops-assignment.
+- Port and target port set to 3000 with TCP protocol.
+- External traffic policy set to Local.
+- Optionally allows specifying an exact NodePort.
+    
+To deploy the backend application in Kubernetes using Helm charts, I first created a Helm chart using the helm create command.
+       
+Updated the generated Helm files to define services and providers according to the application's requirements.
+
+I deployed the Helm chart using the helm install command.
+
